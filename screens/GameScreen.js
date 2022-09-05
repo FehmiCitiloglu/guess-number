@@ -5,7 +5,7 @@ import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/ui/Card';
 import InstructionsText from '../components/ui/InstructionsText';
-
+import { Ionicons } from '@expo/vector-icons'
 
 const generateRandomBetween = (min, max, exclude) => {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -52,19 +52,22 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     return (
         <View style={styles.screen}>
             <Title >Opponent's Guess</Title>
-            <NumberContainer>{currentGuess}</NumberContainer>
+            <NumberContainer >{currentGuess}</NumberContainer>
             <Card>
-                <InstructionsText>Higher or lower ?</InstructionsText>
+                <InstructionsText style={styles.instructionText}>Higher or lower ?</InstructionsText>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                            <Ionicons name="md-remove" size={24} color="white" />
+                        </PrimaryButton>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}><Ionicons name="md-add" size={24} color="white" /></PrimaryButton>
                     </View>
                 </View>
             </Card>
             {/* <View>Log Rounds</View> */}
+
         </View>
     )
 }
@@ -75,6 +78,9 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 24,
+    },
+    instructionText: {
+        marginBottom: 12,
     },
     buttonsContainer: {
         flexDirection: "row",
