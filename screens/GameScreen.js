@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert, FlatList } from 'react-native'
+import { StyleSheet, View, Alert, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
@@ -27,7 +27,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
     useEffect(() => {
         if (currentGuess === userNumber) {
-            onGameOver()
+            onGameOver(guessRounds.length)
         }
     }, [currentGuess, userNumber, onGameOver])
 
@@ -73,16 +73,18 @@ const GameScreen = ({ userNumber, onGameOver }) => {
                         </PrimaryButton>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}><Ionicons name="md-add" size={24} color="white" /></PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                            <Ionicons name="md-add" size={24} color="white" />
+                        </PrimaryButton>
                     </View>
                 </View>
             </Card>
-            <View>
+            <View style={styles.listContainer}>
                 <FlatList
                     data={guessRounds}
                     renderItem={(itemData) => (
                         <GuessLogItem
-                            roundNumber={itemData.index}
+                            roundNumber={guessRoundsListLength - itemData.index}
                             guess={itemData.item}
                         />
                     )}
@@ -108,5 +110,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1
+    },
+    listContainer: {
+        flex: 1,
+        padding: 16
     }
 })

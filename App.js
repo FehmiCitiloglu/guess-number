@@ -16,7 +16,7 @@ export default function App() {
 
   const [guessRounds, setGuessRounds] = useState(0)
 
-  const [fontsLoaded,] = useFonts({
+  const [fontsLoaded] = useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
   })
@@ -26,14 +26,14 @@ export default function App() {
   }
 
 
-
   const pickedNumberHandler = (picketNumber) => {
     setUserNumber(picketNumber)
     setGameIsOver(false)
   }
 
-  const gameOverHandler = () => {
+  const gameOverHandler = (numberOfRounds) => {
     setGameIsOver(true)
+    setGuessRounds(numberOfRounds)
   }
 
   const startNewGameHandler = () => {
